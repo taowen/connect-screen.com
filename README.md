@@ -1,2 +1,8 @@
-# connect-screen.com
-安卓屏连官网
+```txt
+npm install
+npm run dev
+```
+
+```txt
+npm run deploy
+```
