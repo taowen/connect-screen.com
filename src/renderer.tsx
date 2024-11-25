@@ -5,6 +5,7 @@ export const renderer = jsxRenderer(({ children }) => {
     <html>
       <head>
         <link href="/static/style.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
       </head>
       <body>{children}</body>
     </html>
