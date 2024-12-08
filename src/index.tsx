@@ -78,11 +78,24 @@ app.get('/', (c) => {
                 <li>虚拟触控板的入口是首页点“屏幕”，找到要控制的屏幕点进去，再点击“触控板”</li>
               </ul>
             </li>
+            <li>没有安装 <a href="https://shizuku.rikka.app/">shizuku</a> 的情况下，功能会受到限制
+              <ul>
+                <li>displaylink 设备详情页面下无法选择投屏单个应用</li>
+                <li>虚拟触控板降级到只支持部分手势</li>
+              </ul>
+            </li>
           </ul>
         </section>
         <section>
           <h2>更新日志</h2>
           <ul>
+            <li>安卓屏连-1.1.3
+              <ul>
+                <li>usb2.0手机通过displaylink能单应用全屏投屏，但之前仅能用蓝牙手柄控制。这个版本新增了对触控屏，usb键盘鼠标等外设的支持</li>
+                <li>displaylink快捷设置分辨率增加了 ipad4 分辨率。方便购买 ipad 廉价便携屏的用户</li>
+                <li>屏幕列表中增加了“无线投屏”的快捷方式入口</li>
+              </ul>
+            </li>
             <li>安卓屏连-1.1.2
               <ul>
                 <li>触控板增加锁定光标功能，锁定后可以刷抖音</li>
