@@ -19,6 +19,7 @@ app.get('/', (c) => {
             加入 QQ 群 577902537
             </a>。或者在 QQ 中搜索“安卓屏连”。或者用 QQ 扫描下边的二维码</p>
             <img src="/static/qrcode-302.png" />
+          <p>如果你是软件开发者，也可以从 https://gitee.com/connect-screen/connect-screen 获取源代码自行编译</p>
         </section>
         <section>
           <h2>为什么要开发安卓屏连</h2>
@@ -60,6 +61,7 @@ app.get('/', (c) => {
               <li>displaylink 设备连上之后系统也会自动弹出提示，给授权也会自动开始投屏</li>
               <li>触摸屏暂时还有位移的bug没有解决，可以用安卓屏连提供的虚拟触控板操作副屏</li>
               <li>虚拟触控板的入口是首页点“屏幕”，找到要控制的屏幕点进去，再点击“触控板”</li>
+              <li>让 displaylink 在安卓 usb2.0 接口上支持了 2k 分辨率</li>
               </ul>
             </li>
             <li>USB 3.0 手机 - 直连 - 便携屏（或者 AR 眼镜）
