@@ -19,11 +19,35 @@ app.get('/', (c) => {
             加入 QQ 群 577902537
             </a>。或者在 QQ 中搜索“安卓屏连”。或者用 QQ 扫描下边的二维码</p>
             <img src="/static/qrcode-302.png" />
-          <p>如果你是软件开发者，也可以从 https://gitee.com/connect-screen/connect-screen 获取源代码自行编译</p>
+          <p>如果你是软件开发者，也可以从 <a href="https://gitee.com/connect-screen/connect-screen" target="_blank">https://gitee.com/connect-screen/connect-screen</a> 获取源代码自行编译</p>
         </section>
         <section>
-          <h2>为什么要开发安卓屏连</h2>
-          <p>主要是给我个人使用的，发布出来只是为了方便和我有相同需求的同好。我的心愿单：</p>
+          <h2>接上了屏幕之后无法全屏，屏幕比例不对，导致黑边</h2>
+          <p>
+            接个大屏幕的核心诉求是大。但是你真把手机接过一次大电视的时候，你就发现那屏幕一点都不大。
+          接上之后你发现只能镜像一个小小屏幕展示和手机主屏一样的画面。
+          这个问题的原因是手机的宽高比例大概是 2:1，而大部分显示器或者电视的宽高比例是 16:9 的场景。
+          这就导致了手机的画面直接镜像是无法占满全屏的。
+          而且我们也不希望只能镜像，我投屏看电影的时候手机还要刷微信呢。我投屏打游戏的时候，手机还要查攻略呢。
+          安卓屏连支持投单个应用到显示器，从而让这一个应用去占满屏幕。如果投过去的应用是类似“微软桌面”这样的启动器应用，
+          你就获得了一个类似锤子 TNT 的第二块桌面。
+          </p>
+        </section>
+        <section>
+          <h2>不是所有手机都是 usb 3.0 的接口</h2>
+          <p>不是所有的手机都是 usb 3.0 接口的，usb 2.0 手机买的时候你可能没注意。
+            等你用的时候就发现接不了显示器了。
+            k80 pro 都卖到了 4000 元这个价位了，还是在用万年的 usb 2.0 接口。
+            也许你听过一个叫 displaylink 的拓展坞可以让 usb2.0 接口的手机也能连显示器。
+            但是全屏，触摸，竖屏旋转这些功能你需要用安卓屏连才能让 displaylink 这个宝藏硬件得到充分的利用。
+            除了 displaylink 方案，安卓屏连也会继续探索其他基于无线的方案来解决 usb 2.0 手机接大屏幕的问题。</p>
+        </section>
+        <section>
+          <h2>为什么要开发安卓屏连，你打算卖多少钱？</h2>
+          <p>这是给我个人使用的，发布出来只是为了方便和我有相同需求的同好。
+            开源了所有代码 <a href="https://gitee.com/connect-screen/connect-screen" target="_blank">https://gitee.com/connect-screen/connect-screen</a>，没有盈利模式。
+            也欢迎你去我的 b 站账号 <a href="https://space.bilibili.com/494726825" target="_blank">https://space.bilibili.com/494726825</a> 投两个免费的硬币。
+            我希望使用的场景包括：</p>
           <ul>
             <li>USB 2.0 手机通过 displaylink 扩展坞连7寸16:9的便携屏当掌机用，解决比例造成的黑边。解决触控屏不好使的问题。竖屏旋转成横屏。</li>
             <li>USB 3.0 手机直连7寸16:9的便携屏当掌机用，解决比例造成的黑边。提供触控板</li>
