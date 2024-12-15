@@ -1,14 +1,9 @@
 import { Hono } from 'hono'
 import { renderer } from './renderer'
-import DisplayLinkDevices from './displaylink'
 
 const app = new Hono()
 
 app.use(renderer)
-
-app.get('/displaylink', (c) => {
-  return c.render(<DisplayLinkDevices />)
-})
 
 app.get('/', (c) => {
   return c.render(<>
@@ -44,9 +39,9 @@ app.get('/', (c) => {
           <p>手机用线直连显示器需要 usb 接口是 3.0 规格的，但是 usb 2.0 手机买的时候你可能没注意到这一点。
             等你用的时候就发现接不了显示器了。
             红米 k80 pro 都卖到了 4000 元这个价位了，还是在用万年的 usb 2.0 接口。
-            也许你听过一个叫 displaylink 的拓展坞可以让 usb2.0 接口的手机也能连显示器。
-            但是全屏，触摸，竖屏旋转这些功能你需要用安卓屏连才能让 displaylink 这个宝藏硬件得到充分的利用。
-            除了 displaylink 方案，安卓屏连也会继续探索其他基于无线的方案来解决 usb 2.0 手机接大屏幕的问题。</p>
+            也许你听过一个叫 <a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 的拓展坞可以让 usb2.0 接口的手机也能连显示器。
+            但是全屏，触摸，竖屏旋转这些功能你需要用安卓屏连才能让 <a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 这个宝藏硬件得到充分的利用。
+            除了 <a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 方案，安卓屏连也会继续探索其他基于无线的方案来解决 usb 2.0 手机接大屏幕的问题。</p>
         </section>
         <section>
           <h2>为什么要开发安卓屏连，你打算卖多少钱？</h2>
@@ -55,7 +50,7 @@ app.get('/', (c) => {
             也欢迎你去我的 b 站账号 <a href="https://space.bilibili.com/494726825" target="_blank">https://space.bilibili.com/494726825</a> 投两个免费的硬币。
             我希望使用的场景包括：</p>
           <ul>
-            <li>USB 2.0 手机通过 displaylink 扩展坞连7寸16:9的便携屏当掌机用，解决比例造成的黑边。解决触控屏不好使的问题。竖屏旋转成横屏。</li>
+            <li>USB 2.0 手机通过 <a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 扩展坞连7寸16:9的便携屏当掌机用，解决比例造成的黑边。解决触控屏不好使的问题。竖屏旋转成横屏。</li>
             <li>USB 3.0 手机直连7寸16:9的便携屏当掌机用，解决比例造成的黑边。提供触控板</li>
             <li>手机连大便携屏投高德地图当车机用，手机当补盲摄像头，或者外接摄像头</li>
             <li>小屏幕的车机外接一个更大的扩展屏</li>
@@ -83,16 +78,16 @@ app.get('/', (c) => {
         <section>
           <h2>已经实现的功能，全屏去黑边投屏</h2>
           <ul>
-            <li>USB 2.0 手机 - displaylink扩展坞 - 便携屏（或者 AR 眼镜）
+            <li>USB 2.0 手机 - <a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a>扩展坞 - 便携屏（或者 AR 眼镜）
               <ul>
               <li>通过裁切解决比例造成的黑边。可以选择是普通镜像还是裁切到16:9</li>
               <li>可选择全屏投单个应用，从而避免宽高比例问题造成的黑边</li>
               <li>单应用投屏可以让屏幕自动跟随应用的旋转方向，从而竖屏刷抖音</li>
-              <li>入口是首页点“USB设备”按钮，列表中找到连接的 displaylink 扩展坞，点击进入详情。选择镜像，16:9裁切还是投单个应用。点开始投屏按钮</li>
-              <li>displaylink 设备连上之后系统也会自动弹出提示，给授权也会自动开始投屏</li>
-              <li>单应用投屏时，触摸屏和usb外设，鼠标键盘，以及蓝牙手柄都支持控制 displaylink 所投的屏幕</li>
+              <li>入口是首页点“USB设备”按钮，列表中找到连接的 <a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 扩展坞，点击进入详情。选择镜像，16:9裁切还是投单个应用。点开始投屏按钮</li>
+              <li><a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 设备连上之后系统也会自动弹出提示，给授权也会自动开始投屏</li>
+              <li>单应用投屏时，触摸屏和usb外设，鼠标键盘，以及蓝牙手柄都支持控制 <a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 所投的屏幕</li>
               <li>虚拟触控板的入口是首页点“屏幕”，找到要控制的屏幕点进去，再点击“触控板”</li>
-              <li>让 displaylink 在安卓 usb2.0 接口上支持了 2k 分辨率，支持了 120hz 刷新率</li>
+              <li>让 <a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 在安卓 usb2.0 接口上支持了 2k 分辨率，支持了 120hz 刷新率</li>
               </ul>
             </li>
             <li>USB 3.0 手机 - 直连 - 便携屏（或者 AR 眼镜）
@@ -114,7 +109,7 @@ app.get('/', (c) => {
             </li>
             <li>没有安装 <a href="https://shizuku.rikka.app/">shizuku</a> 的情况下，功能会受到限制
               <ul>
-                <li>displaylink 设备无法选择投屏单个应用</li>
+                <li><a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 设备无法选择投屏单个应用</li>
                 <li>虚拟触控板降级到只支持部分手势</li>
                 <li>无法修改已经连接的显示器的分辨率和DPI</li>
                 <li>无法设置输入法出现在哪个屏幕</li>
@@ -127,9 +122,9 @@ app.get('/', (c) => {
           <ul>
             <li>安卓屏连-1.1.8
               <ul>
-                <li>无论是通过 usb3 直连显示器还是displaylink接显示器，在单应用投屏之后会把所有usb外设路由到应用所投的显示器。需要安装 shizuku 并授权。</li>
+                <li>无论是通过 usb3 直连显示器还是<a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a>接显示器，在单应用投屏之后会把所有usb外设路由到应用所投的显示器。需要安装 shizuku 并授权。</li>
                 <li>usb设备列表里找到usb设备，可以手工切换改设备的路由所绑定的显示器</li>
-                <li>displaylink投屏会记住上次的设置</li>
+                <li><a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a>投屏会记住上次的设置</li>
               </ul>
             </li>
             <li>安卓屏连-1.1.7
@@ -139,8 +134,8 @@ app.get('/', (c) => {
             </li>
             <li>安卓屏连-1.1.6
               <ul>
-                <li>displaylink 投屏增加帧率输入框，可以120hz投屏1080p，至少有心理作用加成</li>
-                <li>如果给了 shizuku 授权，displaylink 省去一步投屏权限确认的弹窗</li>
+                <li><a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 投屏增加帧率输入框，可以120hz投屏1080p，至少有心理作用加成</li>
+                <li>如果给了 shizuku 授权，<a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 省去一步投屏权限确认的弹窗</li>
               </ul>
             </li>
             <li>安卓屏连-1.1.5
@@ -151,13 +146,13 @@ app.get('/', (c) => {
             <li>安卓屏连-1.1.4
               <ul>
                 <li>屏幕详情页面增加强制旋转屏幕的按钮，需要 shizuku 授权</li>
-                <li>displaylink 选择单应用投屏时，增加屏幕是否自动跟随应用旋转的选项</li>
+                <li><a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 选择单应用投屏时，增加屏幕是否自动跟随应用旋转的选项</li>
               </ul>
             </li>
             <li>安卓屏连-1.1.3
               <ul>
-                <li>usb2.0手机通过displaylink能单应用全屏投屏，但之前仅能用蓝牙手柄控制。这个版本新增了对触控屏，usb键盘鼠标等外设的支持</li>
-                <li>displaylink快捷设置分辨率增加了 ipad4 分辨率。方便购买 ipad 廉价便携屏的用户</li>
+                <li>usb2.0手机通过<a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a>能单应用全屏投屏，但之前仅能用蓝牙手柄控制。这个版本新增了对触控屏，usb键盘鼠标等外设的支持</li>
+                <li><a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a>快捷设置分辨率增加了 ipad4 分辨率。方便购买 ipad 廉价便携屏的用户</li>
                 <li>屏幕列表中增加了“无线投屏”的快捷方式入口</li>
                 <li>增加了修改显示器 DPI 的功能</li>
               </ul>
@@ -187,14 +182,14 @@ app.get('/', (c) => {
             </li>
             <li>安卓屏连-1.0.8
               <ul>
-                <li>displaylink 选择 16:9 裁切的时候增加如何裁切的说明</li>
+                <li><a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 选择 16:9 裁切的时候增加如何裁切的说明</li>
                 <li>再次修复了 shizuku 模式下触控板无法使用或者闪退的问题</li>
               </ul>
             </li>
             <li>安卓屏连-1.0.7
               <ul>
-                <li>修复 dell d3100 的兼容性问题，支持双 displaylink usb 设备</li>
-                <li>displaylink 检测到显示器之后会自动开始投屏</li>
+                <li>修复 dell d3100 的兼容性问题，支持双 <a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> usb 设备</li>
+                <li><a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 检测到显示器之后会自动开始投屏</li>
               </ul>
             </li>
             <li>
@@ -206,7 +201,7 @@ app.get('/', (c) => {
             <li>
               安卓屏连-1.0.5
               <ul>
-                <li>usb 2.0 的手机也可以单应用投屏了！需要 shizuku 授权，在 displaylink 设备详情页面下选择投屏模式“投屏单个应用"</li>
+                <li>usb 2.0 的手机也可以单应用投屏了！需要 shizuku 授权，在 <a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 设备详情页面下选择投屏模式“投屏单个应用"</li>
                 <li>提供虚拟触控板，让没有触摸屏的第二块屏也能单应用投屏。需要悬浮窗和无障碍权限</li>
                 <li>可修改显示器分辨率。大部分机型不允许修改主屏的分辨率，提供出来只是做为一种方便实验的手段。需要 shizuku 授权</li>
               </ul>
@@ -222,19 +217,19 @@ app.get('/', (c) => {
               安卓屏连-1.0.3
               <ul>
                 <li>对于 typec 能直连的 usb3 机器，增加了投屏单个应用的功能。进入屏幕列表，选择屏幕，选择应用，点启动就可以了。</li>
-                <li>对于需要 displaylink 的 usb2 机器，增加了“普通镜像”和“16:9”裁切的选项</li>
+                <li>对于需要 <a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 的 usb2 机器，增加了“普通镜像”和“16:9”裁切的选项</li>
               </ul>
             </li>
             <li>
               安卓屏连-1.0.1
               <ul>
-                <li>新增了给displaylink强开2k分辨率的功能</li>
+                <li>新增了给<a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a>强开2k分辨率的功能</li>
               </ul>
             </li>
             <li>
               安卓屏连-1.0.0
               <ul>
-                <li>usb 2.0 的手机通过 displaylink 投屏因为宽高比例问题有黑边。通过裁切部分画面，把比例调整为 16:9 从而实现全屏。适用于模拟器游戏，b站视频等画面本身就是 16:9 的场景。</li>
+                <li>usb 2.0 的手机通过 <a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 投屏因为宽高比例问题有黑边。通过裁切部分画面，把比例调整为 16:9 从而实现全屏。适用于模拟器游戏，b站视频等画面本身就是 16:9 的场景。</li>
               </ul>
             </li>
           </ul>
