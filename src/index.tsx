@@ -1,9 +1,14 @@
 import { Hono } from 'hono'
 import { renderer } from './renderer'
+import DisplayLinkDevices from './displaylink'
 
 const app = new Hono()
 
 app.use(renderer)
+
+app.get('/displaylink', (c) => {
+  return c.render(<DisplayLinkDevices />)
+})
 
 app.get('/', (c) => {
   return c.render(<>

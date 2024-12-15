@@ -1,0 +1,26 @@
+.device-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.device-table th,
+.device-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.device-table th {
+    background-color: #f5f5f5;
+}
+
+.device-table img {
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 8px;
+}
+
+.device-table td div {
+    margin: 4px 0;
+}
