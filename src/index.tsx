@@ -120,6 +120,12 @@ app.get('/', (c) => {
         <section>
           <h2>更新日志</h2>
           <ul>
+            <li>安卓屏连-1.1.9
+              <ul>
+                <li>支持安卓13上使用 displaylink 进行单应用投屏，使用虚拟触控板</li>
+                <li>支持安卓10上使用 typec 直连显示器时的单应用投屏，因为安卓10的限制，无法使用虚拟触控板</li>
+              </ul>
+            </li>
             <li>安卓屏连-1.1.8
               <ul>
                 <li>无论是通过 usb3 直连显示器还是<a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a>接显示器，在单应用投屏之后会把所有usb外设路由到应用所投的显示器。需要安装 shizuku 并授权。</li>
