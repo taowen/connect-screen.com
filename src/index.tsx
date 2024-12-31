@@ -1,5 +1,7 @@
 import { Hono } from 'hono'
 import { renderer } from './renderer'
+import { readdir } from 'node:fs/promises'
+import { join } from 'node:path'
 
 const app = new Hono()
 
@@ -20,6 +22,7 @@ app.get('/', (c) => {
             </a>。或者在 QQ 中搜索“安卓屏连”。或者用 QQ 扫描下边的二维码</p>
             <img src="/static/qrcode-302.png" />
           <p>如果你是软件开发者，也可以从 <a href="https://gitee.com/connect-screen/connect-screen" target="_blank">https://gitee.com/connect-screen/connect-screen</a> 获取源代码自行编译</p>
+          <p>APK 安装包直接下载链接 <a href="https://connect-screen.com/download-latest">https://connect-screen/download-latest</a></p>
         </section>
         <section>
           <h2>接上了屏幕之后无法全屏，屏幕比例不对，导致黑边</h2>
@@ -287,6 +290,95 @@ app.get('/', (c) => {
       </footer>
     </div>
   </>)
+})
+
+app.get('/download-latest', async (c) => {
+  try {
+    const files = ['chunk_0.dat','chunk_1.dat','chunk_2.dat','chunk_3.dat','chunk_4.dat']
+    
+    return c.html(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Download Latest APK</title>
+          <style>
+            .progress {
+              width: 100%;
+              max-width: 400px;
+              margin: 20px 0;
+            }
+            #status {
+              margin: 10px 0;
+            }
+          </style>
+        </head>
+        <body>
+          <h1>Download Latest APK</h1>
+          <progress id="downloadProgress" class="progress" value="0" max="100"></progress>
+          <div id="status">Ready to download...</div>
+          <button onclick="startDownload()">Download APK</button>
+
+          <script>
+            const files = ${JSON.stringify(files.sort())};
+            
+            async function startDownload() {
+              const status = document.getElementById('status');
+              const progress = document.getElementById('downloadProgress');
+              const chunks = [];
+              
+              try {
+                status.textContent = 'Downloading chunks...';
+                
+                for (let i = 0; i < files.length; i++) {
+                  const response = await fetch(\`/static/download-latest/\${files[i]}\`);
+                  if (!response.ok) throw new Error(\`Failed to download \${files[i]}\`);
+                  
+                  const chunk = await response.arrayBuffer();
+                  chunks.push(chunk);
+                  
+                  progress.value = ((i + 1) / files.length) * 100;
+                }
+
+                status.textContent = 'Combining chunks...';
+                
+                // Combine all chunks
+                const totalLength = chunks.reduce((acc, chunk) => acc + chunk.byteLength, 0);
+                const combinedBuffer = new Uint8Array(totalLength);
+                
+                let offset = 0;
+                for (const chunk of chunks) {
+                  combinedBuffer.set(new Uint8Array(chunk), offset);
+                  offset += chunk.byteLength;
+                }
+
+                // Create download link
+                const blob = new Blob([combinedBuffer], { type: 'application/vnd.android.package-archive' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'com.gitee.connect-screen.apk';
+                
+                status.textContent = 'Starting download...';
+                a.click();
+                
+                // Cleanup
+                URL.revokeObjectURL(url);
+                status.textContent = 'Download complete!';
+              } catch (error) {
+                status.textContent = \`Error: \${error.message}\`;
+                console.error(error);
+              }
+            }
+          </script>
+        </body>
+      </html>
+    `)
+  } catch (error) {
+    return c.json({
+      error: 'Failed to read directory',
+      details: error instanceof Error ? error.message : String(error)
+    }, 500)
+  }
 })
 
 export default app

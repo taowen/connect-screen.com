@@ -8,7 +8,8 @@
     "deploy": "pnpm run build && wrangler pages deploy"
   },
   "dependencies": {
-    "hono": "^4.6.12"
+    "hono": "^4.6.12",
+    "tsx": "^4.19.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240529.0",
