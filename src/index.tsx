@@ -1,7 +1,5 @@
 import { Hono } from 'hono'
 import { renderer } from './renderer'
-import { readdir } from 'node:fs/promises'
-import { join } from 'node:path'
 
 const app = new Hono()
 
