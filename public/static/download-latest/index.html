@@ -1,0 +1,77 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Download Latest APK</title>
+    <style>
+      .progress {
+        width: 100%;
+        max-width: 400px;
+        margin: 20px 0;
+      }
+      #status {
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Download Latest APK</h1>
+    <progress id="downloadProgress" class="progress" value="0" max="100"></progress>
+    <div id="status">Ready to download...</div>
+    <button onclick="startDownload()">Download APK</button>
+
+    <script>
+      const files = ["chunk_0.dat","chunk_1.dat","chunk_2.dat","chunk_3.dat","chunk_4.dat"];
+      
+      async function startDownload() {
+        const status = document.getElementById('status');
+        const progress = document.getElementById('downloadProgress');
+        const chunks = [];
+        
+        try {
+          status.textContent = 'Downloading chunks...';
+          
+          for (let i = 0; i < files.length; i++) {
+            const response = await fetch(`/static/download-latest/${files[i]}`);
+            if (!response.ok) throw new Error(`Failed to download ${files[i]}`);
+            
+            const chunk = await response.arrayBuffer();
+            chunks.push(chunk);
+            
+            progress.value = ((i + 1) / files.length) * 100;
+          }
+
+          status.textContent = 'Combining chunks...';
+          
+          // Combine all chunks
+          const totalLength = chunks.reduce((acc, chunk) => acc + chunk.byteLength, 0);
+          const combinedBuffer = new Uint8Array(totalLength);
+          
+          let offset = 0;
+          for (const chunk of chunks) {
+            combinedBuffer.set(new Uint8Array(chunk), offset);
+            offset += chunk.byteLength;
+          }
+
+          // Create download link
+          const blob = new Blob([combinedBuffer], { type: 'application/vnd.android.package-archive' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'com.gitee.connect-screen.apk';
+          
+          status.textContent = 'Starting download...';
+          a.click();
+          
+          // Cleanup
+          URL.revokeObjectURL(url);
+          status.textContent = 'Download complete!';
+        } catch (error) {
+          status.textContent = `Error: ${error.message}`;
+          console.error(error);
+        }
+      }
+    </script>
+  </body>
+</html>
