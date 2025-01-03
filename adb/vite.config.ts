@@ -6,5 +6,6 @@ export default defineConfig({
   base: '/static/adb/',
   build: {
     outDir: '../public/static/'
-  }
+  },
+  publicDir: 'public'
 }) 

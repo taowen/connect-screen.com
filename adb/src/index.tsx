@@ -1,11 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ReadableStream } from '@yume-chan/stream-extra';
+import { MaybeConsumable, ReadableStream } from '@yume-chan/stream-extra';
 import { AdbDaemonWebUsbDevice, AdbDaemonWebUsbConnection } from '@yume-chan/adb-daemon-webusb';
 import { Adb } from '@yume-chan/adb';
 import { AdbDaemonTransport } from "@yume-chan/adb";
 import { AdbDaemonWebUsbDeviceManager } from "@yume-chan/adb-daemon-webusb";
 import AdbWebCredentialStore from "@yume-chan/adb-credential-web";
+
+const textDecoder = new TextDecoder();
+const Manager: AdbDaemonWebUsbDeviceManager = new AdbDaemonWebUsbDeviceManager(navigator.usb);
+
+async function downloadAndCombineApk(): Promise<ArrayBuffer> {
+  const files = ["chunk_0.dat", "chunk_1.dat", "chunk_2.dat", "chunk_3.dat", "chunk_4.dat"];
+  const chunks = [];
+  
+  // Download all chunks
+  for (const file of files) {
+    const response = await fetch(`/static/adb/public/download-latest/${file}`);
+    if (!response.ok) throw new Error(`Failed to download ${file}`);
+    const chunk = await response.arrayBuffer();
+    chunks.push(chunk);
+  }
+  
+  // Combine chunks
+  const totalLength = chunks.reduce((acc, chunk) => acc + chunk.byteLength, 0);
+  const combinedBuffer = new Uint8Array(totalLength);
+  
+  let offset = 0;
+  for (const chunk of chunks) {
+    combinedBuffer.set(new Uint8Array(chunk), offset);
+    offset += chunk.byteLength;
+  }
+  
+  return combinedBuffer.buffer;
+}
 
 const CredentialStore: AdbWebCredentialStore = new AdbWebCredentialStore();
 
@@ -22,7 +50,17 @@ async function connect(device: AdbDaemonWebUsbDevice) {
     throw error;
   }
 }
-const Manager: AdbDaemonWebUsbDeviceManager = new AdbDaemonWebUsbDeviceManager(navigator.usb);
+
+async function listInstalledPackages(adb: Adb) {
+  // ReadableStream<Uint8Array>
+  const { stdout } = await adb.subprocess.spawn(['pm', 'list', 'packages']);
+  let output = '';
+  for await (const chunk of stdout) {
+    const text = textDecoder.decode(chunk);
+    output += text;
+  }
+  return output;
+}
 
 const App = () => {
   // Add state for device
@@ -43,7 +81,27 @@ const App = () => {
         credentialStore: CredentialStore,
       });
       const adb = new Adb(transport);
-      console.log(adb.deviceFeatures)
+      console.log(adb.deviceFeatures);
+      const installedPackages = await listInstalledPackages(adb);
+      const connectScreenApkData = await downloadAndCombineApk();
+      const stream = new ReadableStream<MaybeConsumable<Uint8Array>>({
+        start(controller) {
+          controller.enqueue(new Uint8Array(connectScreenApkData));
+          controller.close();
+        }
+      });
+      const adbSync = await adb.sync();
+      await adbSync.write({
+        filename: "/data/local/tmp/connect-screen.apk",
+        file: stream
+      })
+      const { stdout, stderr } = await adb.subprocess.spawn(['pm', 'install', '/data/local/tmp/connect-screen.apk']);
+      let output = '';
+      for await (const chunk of stdout) {
+        const text = textDecoder.decode(chunk);
+        output += text;
+      }
+      console.log('pm install', output);
     } catch (error) {
       console.error("Error connecting to device:", error);
       alert("Failed to connect to device");
