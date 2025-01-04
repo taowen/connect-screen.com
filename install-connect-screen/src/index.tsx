@@ -192,7 +192,7 @@ const App = () => {
   return (
     <div>
       <h1>
-        安卓屏连在线安装
+        安卓屏连在线安装，需要在电脑上打开这个页面，以及 USB 连接手机
       </h1>
       
       <p>
@@ -222,7 +222,12 @@ const App = () => {
           <li>点击下方「安装」按钮：
             <ul>
               <li>在弹出的设备选择框中选择您的手机</li>
-              <li>等待安装完成，请勿断开手机连接</li>
+              <li>等待安装完成，手机上会弹出确认安装的对话框</li>
+              <li>会自动执行如下操作：</li>
+              <li>安装 <a href="/static/moe.shizuku.privileged.api_1049.apk">Shizuku 的 apk</a></li>
+              <li>安装 <a href="/static/download-latest/index.html">安卓屏连 apk</a></li>
+              <li>启动 Shizuku</li>
+              <li>运行 /sdcard/Android/data/moe.shizuku.privileged.api/start.sh</li>
             </ul>
           </li>
         </ol>
