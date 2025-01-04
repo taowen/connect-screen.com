@@ -23,7 +23,7 @@ function log(message: string) {
 
 async function downloadShizukuApk(): Promise<ArrayBuffer> {
   log('start download shizuku.apk');
-  const response = await fetch('/static/adb/public/moe.shizuku.privileged.api_1049.apk');
+  const response = await fetch('/static/moe.shizuku.privileged.api_1049.apk');
   if (!response.ok) {
     throw new Error('Failed to download Shizuku APK');
   }
@@ -39,7 +39,7 @@ async function downloadAndCombineApk(): Promise<ArrayBuffer> {
   
   // Download all chunks
   for (const file of files) {
-    const response = await fetch(`/static/adb/public/download-latest/${file}`);
+    const response = await fetch(`/static/download-latest/${file}`);
     if (!response.ok) throw new Error(`Failed to download ${file}`);
     const chunk = await response.arrayBuffer();
     chunks.push(chunk);
@@ -119,58 +119,69 @@ async function adbExecute(adb: Adb, args: string[]) {
 }
 
 const App = () => {
-  // Add state for device
-  const [device, setDevice] = useState<AdbDaemonWebUsbDevice | undefined>(undefined);
-
-  // Handler for device selection
+  const [needRefresh, setNeedRefresh] = useState(false);
   const handleConnect = async () => {
+    if (needRefresh) {      
+      alert('请再点击一次安装');
+      window.location.reload();
+      return;
+    }
     try {
+      log('start install');
       const selectedDevice = await Manager.requestDevice();
       if (!selectedDevice) {
+        log('no device selected');
         alert("No device selected");
         return;
       }
+      log('selected device: ' + selectedDevice.name);
       const conn = await connect(selectedDevice)
-      const transport = await AdbDaemonTransport.authenticate({
-        serial: selectedDevice.serial,
-        connection: conn,
-        credentialStore: CredentialStore,
-      });
-      const adb = new Adb(transport);
-      console.log(adb.deviceFeatures);
-      // const installedPackages = await listInstalledPackages(adb);
-      const adbSync = await adb.sync();
-      const shizukuApkData = await downloadShizukuApk();
-      await adbSync.write({
-        filename: "/data/local/tmp/shizuku.apk",
-        file: asStream(shizukuApkData)
-      })
-      await adbExecute(adb, ['pm', 'install', '/data/local/tmp/shizuku.apk']);
-      const connectScreenApkData = await downloadAndCombineApk();
-      await adbSync.write({
-        filename: "/data/local/tmp/connect-screen.apk",
-        file: asStream(connectScreenApkData)
-      })
-      await adbExecute(adb, ['pm', 'install', '/data/local/tmp/connect-screen.apk']);
-      const shell = await AdbSubprocessShellProtocol.pty(adb, 'sh /sdcard/Android/data/moe.shizuku.privileged.api/start.sh > /data/local/tmp/start-shizuku.log');
-      const { stdout, stderr, exit } = shell;
-      for await (const chunk of stderr) {
-        const text = textDecoder.decode(chunk);
-        log(text);
-      }
-      for await (const chunk of stdout) {
-        const text = textDecoder.decode(chunk);
-        log(text);
-      }
-      const exitCode = await exit;
-      if (exitCode != 0) {
-        throw new Error(`start shizuku exit with: ${exitCode}`)
-      }
-      for await(const chunk of adbSync.read('/data/local/tmp/start-shizuku.log')) {
-        const text = textDecoder.decode(chunk);
-        for (const line of text.split('\n')) {
-            log(line);
+      log('connected');
+      try {
+        const transport = await AdbDaemonTransport.authenticate({
+          serial: selectedDevice.serial,
+          connection: conn,
+          credentialStore: CredentialStore,
+        });
+        const adb = new Adb(transport);
+        log('adb created');
+        // const installedPackages = await listInstalledPackages(adb);
+        const adbSync = await adb.sync();
+        const shizukuApkData = await downloadShizukuApk();
+        await adbSync.write({
+          filename: "/data/local/tmp/shizuku.apk",
+          file: asStream(shizukuApkData)
+        })
+        await adbExecute(adb, ['pm', 'install', '/data/local/tmp/shizuku.apk']);
+        const connectScreenApkData = await downloadAndCombineApk();
+        await adbSync.write({
+          filename: "/data/local/tmp/connect-screen.apk",
+          file: asStream(connectScreenApkData)
+        })
+        await adbExecute(adb, ['pm', 'install', '/data/local/tmp/connect-screen.apk']);
+        await adbExecute(adb, ['am', 'start', 'moe.shizuku.privileged.api/moe.shizuku.manager.MainActivity']);
+        const shell = await AdbSubprocessShellProtocol.pty(adb, 'sh /sdcard/Android/data/moe.shizuku.privileged.api/start.sh > /data/local/tmp/start-shizuku.log');
+        const { stdout, stderr, exit } = shell;
+        for await (const chunk of stderr) {
+          const text = textDecoder.decode(chunk);
+          log(text);
         }
+        for await (const chunk of stdout) {
+          const text = textDecoder.decode(chunk);
+          log(text);
+        }
+        const exitCode = await exit;
+        if (exitCode != 0) {
+          throw new Error(`start shizuku exit with: ${exitCode}`)
+        }
+        for await(const chunk of adbSync.read('/data/local/tmp/start-shizuku.log')) {
+          const text = textDecoder.decode(chunk);
+          for (const line of text.split('\n')) {
+              log(line);
+          }
+        }
+      } finally {
+        setNeedRefresh(true);
       }
     } catch (error) {
       console.error("Error connecting to device:", error);
@@ -180,9 +191,53 @@ const App = () => {
 
   return (
     <div>
-      <h1>ADB WebUSB Demo</h1>
-      <button onClick={handleConnect}>
-        {device ? 'Connected' : 'Connect to Device'}
+      <h1>
+        安卓屏连在线安装
+      </h1>
+      
+      <p>
+        <ol>
+          <li>打开手机的开发者模式：
+            <ul>
+              <li>进入手机「设置」</li>
+              <li>找到「关于手机」</li>
+              <li>连续点击「版本号」7次，直到提示已开启开发者模式</li>
+            </ul>
+          </li>
+          <li>在开发者选项中，打开 USB 调试：
+            <ul>
+              <li>返回「设置」，找到「开发者选项」（通常在系统设置底部）</li>
+              <li>打开「开发者选项」开关</li>
+              <li>找到并启用「USB 调试」选项</li>
+              <li>在弹出的警告对话框中点击「确定」</li>
+            </ul>
+          </li>
+          <li>将手机通过 USB 线连接到电脑：
+            <ul>
+              <li>使用原装或质量可靠的 USB 数据线</li>
+              <li>连接后查看手机是否弹出「允许 USB 调试」的提示框</li>
+              <li>如果弹出提示，请点击「允许」或「确定」</li>
+            </ul>
+          </li>
+          <li>点击下方「安装」按钮：
+            <ul>
+              <li>在弹出的设备选择框中选择您的手机</li>
+              <li>等待安装完成，请勿断开手机连接</li>
+            </ul>
+          </li>
+        </ol>
+      </p>
+      <button onClick={handleConnect} style={{
+          padding: '12px 24px',
+          fontSize: '18px',
+          borderRadius: '8px',
+          backgroundColor: '#007bff',
+          color: 'white',
+          border: 'none',
+          cursor: 'pointer',
+          margin: '20px 0'
+        }}>
+        安装
       </button>
     </div>
   );

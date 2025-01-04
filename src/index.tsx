@@ -20,7 +20,20 @@ app.get('/', (c) => {
             </a>。或者在 QQ 中搜索“安卓屏连”。或者用 QQ 扫描下边的二维码</p>
             <img src="/static/qrcode-302.png" />
           <p>如果你是软件开发者，也可以从 <a href="https://gitee.com/connect-screen/connect-screen" target="_blank">https://gitee.com/connect-screen/connect-screen</a> 获取源代码自行编译</p>
-          <p>APK 安装包直接下载链接 <a href="/download-latest">https://connect-screen.com/download-latest</a></p>
+          
+          <a href="/static/install/index.html" style={{
+              padding: '12px 24px',
+              fontSize: '18px',
+              borderRadius: '8px',
+              backgroundColor: '#007bff',
+              color: 'white',
+              border: 'none',
+              cursor: 'pointer',
+              textDecoration: 'none',
+              display: 'inline-block'
+            }}>
+            在线安装
+          </a>
         </section>
         <section>
           <h2>接上了屏幕之后无法全屏，屏幕比例不对，导致黑边</h2>
