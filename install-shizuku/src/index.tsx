@@ -7,9 +7,6 @@ import { AdbDaemonTransport } from "@yume-chan/adb";
 import { AdbDaemonWebUsbDeviceManager } from "@yume-chan/adb-daemon-webusb";
 import AdbWebCredentialStore from "@yume-chan/adb-credential-web";
 
-if (typeof navigator.usb === 'undefined') {
-  alert("您的浏览器不支持 USB 调试");
-}
 const textDecoder = new TextDecoder();
 const Manager: AdbDaemonWebUsbDeviceManager = new AdbDaemonWebUsbDeviceManager(navigator.usb);
 const CredentialStore: AdbWebCredentialStore = new AdbWebCredentialStore();
@@ -32,6 +29,33 @@ async function downloadShizukuApk(): Promise<ArrayBuffer> {
   }
   log('downloaded shizuku.apk');
   return await response.arrayBuffer();
+}
+
+
+async function downloadAndCombineApk(): Promise<ArrayBuffer> {
+  log('start download connect-screen.apk');
+  const files = ["chunk_0.dat", "chunk_1.dat", "chunk_2.dat", "chunk_3.dat", "chunk_4.dat"];
+  const chunks = [];
+  
+  // Download all chunks
+  for (const file of files) {
+    const response = await fetch(`/static/download-latest/${file}`);
+    if (!response.ok) throw new Error(`Failed to download ${file}`);
+    const chunk = await response.arrayBuffer();
+    chunks.push(chunk);
+  }
+  
+  // Combine chunks
+  const totalLength = chunks.reduce((acc, chunk) => acc + chunk.byteLength, 0);
+  const combinedBuffer = new Uint8Array(totalLength);
+  
+  let offset = 0;
+  for (const chunk of chunks) {
+    combinedBuffer.set(new Uint8Array(chunk), offset);
+    offset += chunk.byteLength;
+  }
+  log('downloaded connect-screen.apk');
+  return combinedBuffer.buffer;
 }
 
 function asStream(data: ArrayBuffer) {
@@ -95,64 +119,79 @@ async function adbExecute(adb: Adb, args: string[]) {
 }
 
 const App = () => {
-  // Add state for device
-  const [device, setDevice] = useState<AdbDaemonWebUsbDevice | undefined>(undefined);
-
-  // Handler for device selection
+  const [needRefresh, setNeedRefresh] = useState(false);
   const handleConnect = async () => {
+    if (needRefresh) {      
+      alert('请再点击一次启动');
+      window.location.reload();
+      return;
+    }
     try {
+      log('start install');
       const selectedDevice = await Manager.requestDevice();
       if (!selectedDevice) {
+        log('no device selected');
         alert("No device selected");
         return;
       }
+      log('selected device: ' + selectedDevice.name);
       const conn = await connect(selectedDevice)
-      const transport = await AdbDaemonTransport.authenticate({
-        serial: selectedDevice.serial,
-        connection: conn,
-        credentialStore: CredentialStore,
-      });
-      const adb = new Adb(transport);
-      const adbSync = await adb.sync();
-      const installedPackages = await listInstalledPackages(adb);
-      if (!installedPackages.includes('moe.shizuku.privileged.api')) {
-        const shizukuApkData = await downloadShizukuApk();
-        await adbSync.write({
-          filename: "/data/local/tmp/shizuku.apk",
-          file: asStream(shizukuApkData)
-        })
-        await adbExecute(adb, ['pm', 'install', '/data/local/tmp/shizuku.apk']);
-        await adbExecute(adb, ['moneky', '-p', 'moe.shizuku.privileged.api', '-c', 'android.intent.category.LAUNCHE', '1']);
-      }
-      const shell = await AdbSubprocessShellProtocol.pty(adb, 'sh /sdcard/Android/data/moe.shizuku.privileged.api/start.sh > /data/local/tmp/start-shizuku.log');
-      const { stdout, stderr, exit } = shell;
-      for await (const chunk of stderr) {
-        const text = textDecoder.decode(chunk);
-        log(text);
-      }
-      for await (const chunk of stdout) {
-        const text = textDecoder.decode(chunk);
-        log(text);
-      }
-      const exitCode = await exit;
-      if (exitCode != 0) {
-        throw new Error(`start shizuku exit with: ${exitCode}`)
-      }
-      for await(const chunk of adbSync.read('/data/local/tmp/start-shizuku.log')) {
-        const text = textDecoder.decode(chunk);
-        for (const line of text.split('\n')) {
-            log(line);
+      log('connected');
+      try {
+        const transport = await AdbDaemonTransport.authenticate({
+          serial: selectedDevice.serial,
+          connection: conn,
+          credentialStore: CredentialStore,
+        });
+        const adb = new Adb(transport);
+        log('adb created');
+        const adbSync = await adb.sync();
+        const installedPackages = await listInstalledPackages(adb);
+        if (!installedPackages.includes('moe.shizuku.privileged.api')) {
+          const shizukuApkData = await downloadShizukuApk();
+          await adbSync.write({
+            filename: "/data/local/tmp/shizuku.apk",
+            file: asStream(shizukuApkData)
+          })
+          await adbExecute(adb, ['pm', 'install', '/data/local/tmp/shizuku.apk']);
+          await adbExecute(adb, ['am', 'start', 'moe.shizuku.privileged.api/moe.shizuku.manager.MainActivity']);
+          await new Promise(resolve => setTimeout(resolve, 2000));
         }
+        const shell = await AdbSubprocessShellProtocol.pty(adb, 'sh /sdcard/Android/data/moe.shizuku.privileged.api/start.sh > /data/local/tmp/start-shizuku.log');
+        const { stdout, stderr, exit } = shell;
+        for await (const chunk of stderr) {
+          const text = textDecoder.decode(chunk);
+          log(text);
+        }
+        for await (const chunk of stdout) {
+          const text = textDecoder.decode(chunk);
+          log(text);
+        }
+        const exitCode = await exit;
+        if (exitCode != 0) {
+          throw new Error(`start shizuku exit with: ${exitCode}`)
+        }
+        for await(const chunk of adbSync.read('/data/local/tmp/start-shizuku.log')) {
+          const text = textDecoder.decode(chunk);
+          for (const line of text.split('\n')) {
+              log(line);
+          }
+        }
+      } finally {
+        setNeedRefresh(true);
       }
     } catch (error) {
       console.error("Error connecting to device:", error);
-      alert("没有找到手机");
+      alert("Failed to connect to device");
     }
   };
 
   return (
     <div>
-      <h1>启动 Shizuku</h1>
+      <h1>
+        安装并启动 Shizuku，需要在电脑上打开这个页面，以及 USB 连接手机
+      </h1>
+      
       <p>
         <ol>
           <li>打开手机的开发者模式：
@@ -180,14 +219,16 @@ const App = () => {
           <li>点击下方「启动」按钮：
             <ul>
               <li>在弹出的设备选择框中选择您的手机</li>
-              <li>等待安装完成，请勿断开手机连接</li>
+              <li>等待安装完成，手机上会弹出确认安装的对话框</li>
+              <li>会自动执行如下操作：</li>
+              <li>安装 <a href="/moe.shizuku.privileged.api_1049.apk">Shizuku 的 apk</a></li>
+              <li>启动 Shizuku</li>
+              <li>运行 /sdcard/Android/data/moe.shizuku.privileged.api/start.sh</li>
             </ul>
           </li>
         </ol>
       </p>
-      <button 
-        onClick={handleConnect}
-        style={{
+      <button onClick={handleConnect} style={{
           padding: '12px 24px',
           fontSize: '18px',
           borderRadius: '8px',
@@ -196,8 +237,7 @@ const App = () => {
           border: 'none',
           cursor: 'pointer',
           margin: '20px 0'
-        }}
-      >
+        }}>
         启动
       </button>
     </div>

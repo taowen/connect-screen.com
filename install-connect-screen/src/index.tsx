@@ -160,6 +160,7 @@ const App = () => {
         })
         await adbExecute(adb, ['pm', 'install', '/data/local/tmp/connect-screen.apk']);
         await adbExecute(adb, ['am', 'start', 'moe.shizuku.privileged.api/moe.shizuku.manager.MainActivity']);
+        await new Promise(resolve => setTimeout(resolve, 1000));
         const shell = await AdbSubprocessShellProtocol.pty(adb, 'sh /sdcard/Android/data/moe.shizuku.privileged.api/start.sh > /data/local/tmp/start-shizuku.log');
         const { stdout, stderr, exit } = shell;
         for await (const chunk of stderr) {
