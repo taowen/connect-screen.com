@@ -34,7 +34,7 @@ async function downloadShizukuApk(): Promise<ArrayBuffer> {
 
 async function downloadAndCombineApk(): Promise<ArrayBuffer> {
   log('start download connect-screen.apk');
-  const files = ["chunk_0.dat", "chunk_1.dat", "chunk_2.dat", "chunk_3.dat", "chunk_4.dat"];
+  const files = ["chunk_0.dat", "chunk_1.dat", "chunk_2.dat", "chunk_3.dat"];
   const chunks = [];
   
   // Download all chunks

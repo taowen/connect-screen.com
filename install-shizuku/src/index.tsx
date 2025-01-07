@@ -31,33 +31,6 @@ async function downloadShizukuApk(): Promise<ArrayBuffer> {
   return await response.arrayBuffer();
 }
 
-
-async function downloadAndCombineApk(): Promise<ArrayBuffer> {
-  log('start download connect-screen.apk');
-  const files = ["chunk_0.dat", "chunk_1.dat", "chunk_2.dat", "chunk_3.dat", "chunk_4.dat"];
-  const chunks = [];
-  
-  // Download all chunks
-  for (const file of files) {
-    const response = await fetch(`/static/download-latest/${file}`);
-    if (!response.ok) throw new Error(`Failed to download ${file}`);
-    const chunk = await response.arrayBuffer();
-    chunks.push(chunk);
-  }
-  
-  // Combine chunks
-  const totalLength = chunks.reduce((acc, chunk) => acc + chunk.byteLength, 0);
-  const combinedBuffer = new Uint8Array(totalLength);
-  
-  let offset = 0;
-  for (const chunk of chunks) {
-    combinedBuffer.set(new Uint8Array(chunk), offset);
-    offset += chunk.byteLength;
-  }
-  log('downloaded connect-screen.apk');
-  return combinedBuffer.buffer;
-}
-
 function asStream(data: ArrayBuffer) {
     return new ReadableStream<MaybeConsumable<Uint8Array>>({
       start(controller) {
