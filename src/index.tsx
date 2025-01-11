@@ -356,7 +356,7 @@ app.get('/', (c) => {
         </section>
       </main>
       <footer>
-        <p>版权所有 &copy; 2024 安卓屏连</p>
+        <p>版权所有 &copy; 2025 安卓屏连</p>
       </footer>
     </div>
   </>)
