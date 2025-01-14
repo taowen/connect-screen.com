@@ -21,19 +21,38 @@ app.get('/', (c) => {
             <img src="/static/qrcode-302.png" />
           <p>如果你是软件开发者，也可以从 <a href="https://gitee.com/connect-screen/connect-screen" target="_blank">https://gitee.com/connect-screen/connect-screen</a> 获取源代码自行编译</p>
           
-          <a href="/static/install/index.html" style={{
-              padding: '12px 24px',
-              fontSize: '18px',
-              borderRadius: '8px',
-              backgroundColor: '#007bff',
-              color: 'white',
-              border: 'none',
-              cursor: 'pointer',
-              textDecoration: 'none',
-              display: 'inline-block'
-            }}>
-            在线安装
-          </a>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '8px'
+          }}>
+            <a href="/static/download-latest/index.html" style={{
+                padding: '12px 24px',
+                fontSize: '18px',
+                borderRadius: '8px',
+                backgroundColor: '#007bff',
+                color: 'white',
+                border: 'none',
+                cursor: 'pointer',
+                textDecoration: 'none',
+                display: 'inline-block'
+              }}>
+              下载安装包
+            </a>
+            <a href="/static/install/index.html" style={{
+                padding: '12px 24px',
+                fontSize: '18px',
+                borderRadius: '8px',
+                backgroundColor: '#808080',
+                color: 'white',
+                border: 'none',
+                cursor: 'pointer',
+                textDecoration: 'none',
+                display: 'inline-block'
+              }}>
+              在线安装
+            </a>
+          </div>
         </section>
         <section>
           <h2>接上了屏幕之后无法全屏，屏幕比例不对，导致黑边</h2>
