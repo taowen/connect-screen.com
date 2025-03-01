@@ -26,7 +26,7 @@ app.get('/', (c) => {
             flexDirection: 'row',
             gap: '8px'
           }}>
-            <a href="/static/download-latest/index.html" style={{
+            <a href="https://pan.baidu.com/s/1Wsz1c7ei69jlAT5wjdCzPA?pwd=1234" style={{
                 padding: '12px 24px',
                 fontSize: '18px',
                 borderRadius: '8px',
@@ -38,19 +38,6 @@ app.get('/', (c) => {
                 display: 'inline-block'
               }}>
               下载安装包
-            </a>
-            <a href="/static/install/index.html" style={{
-                padding: '12px 24px',
-                fontSize: '18px',
-                borderRadius: '8px',
-                backgroundColor: '#808080',
-                color: 'white',
-                border: 'none',
-                cursor: 'pointer',
-                textDecoration: 'none',
-                display: 'inline-block'
-              }}>
-              在线安装
             </a>
           </div>
         </section>
