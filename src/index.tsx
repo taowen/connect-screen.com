@@ -170,7 +170,20 @@ app.get('/', (c) => {
           <h2>更新日志</h2>
           <ul>
             <li>
-            屏易连-1.3.8
+              屏易连-1.4.0
+              <ul>
+                <li>moonlight 无线投屏支持触摸反控，条件是设置里授予了 shizuku 权限，并且勾选了单应用投屏</li>
+              </ul>
+            </li>
+            <li>
+              屏易连-1.3.9
+              <ul>
+                <li>moonlight 无线投屏支持了音频</li>
+                <li>设置中给了 shizuku 权限之后，moonlight 无线投屏也支持了单应用投屏</li>
+              </ul>
+            </li>
+            <li>
+              屏易连-1.3.8
               <ul>
                 <li>改善 moonlight 投屏的 h264 编码器兼容性。仍未支持触摸和音频</li>
                 <li>moonlight 退出投屏的时候会自动重启屏易连进程</li>
