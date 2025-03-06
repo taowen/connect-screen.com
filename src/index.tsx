@@ -104,8 +104,8 @@ app.get('/', (c) => {
             而且在用 bilibili 等视频应用看 16:9 比例的电影的时候，可以根据黑边的大小自动通过缩放来裁切掉黑边从而达到全屏镜像的效果。
             屏易连支持三种投屏方式
             <ul>
-              <li>moonlight 客户端通过无线投屏</li>
-              <li>usb 2.0 手机通过 displaylink 扩展坞有线投屏</li>
+              <li>moonlight 客户端通过无线投屏。https://moonlight-stream.org/ 有几乎所有平台的客户端。</li>
+              <li>usb 2.0 手机通过 displaylink 扩展坞有线投屏。不推荐买 displaylink 扩展坞硬件了，我觉得 moonlight 足够用了。</li>
               <li>usb 3.0 手机有线投屏</li>
             </ul>
             屏连和屏易连现在已经拆分成两个独立的安装包了。
@@ -169,6 +169,21 @@ app.get('/', (c) => {
         <section>
           <h2>更新日志</h2>
           <ul>
+            <li>
+            屏易连-1.4.2
+              <ul>
+                <li>修复 pc moonlight 的兼容问题</li>
+                <li>单应用投屏时，增加悬浮返回键。单击返回上一级，双击返回投屏应用</li>
+              </ul>
+            </li>
+            <li>
+            屏易连-1.4.1
+              <ul>
+                <li>修复moonlight无线投屏下，多指手势的bug</li>
+                <li>增加单应用投屏的 dpi 设置</li>
+                <li>typec直连的时候，单应用投屏不需要shizuku权限了</li>
+              </ul>
+            </li>
             <li>
               屏易连-1.4.0
               <ul>
