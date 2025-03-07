@@ -16,7 +16,7 @@ app.get('/', (c) => {
           <h2>软件获取</h2>
           <p>安卓屏连目前仍然处于开发中的状态，最新版本的 apk 请
             <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=Plk177jevOVwOdK7DUUP2Ht3K5poa4_u&jump_from=webapi&authKey=UmNk2qswp3p+VDriWxwU99YggMG6r3zaQJMvfyjt8o42Rk544YVomyvf2L4V414a">
-            加入 QQ 群 577902537
+            加入 QQ 群 391036729
             </a>。或者在 QQ 中搜索“安卓屏连”。或者用 QQ 扫描下边的二维码</p>
             <img src="/static/qrcode-302.png" />
           <p>如果你是软件开发者，也可以从 <a href="https://gitee.com/connect-screen/connect-screen" target="_blank">https://gitee.com/connect-screen/connect-screen</a> 获取源代码自行编译</p>
@@ -169,6 +169,14 @@ app.get('/', (c) => {
         <section>
           <h2>更新日志</h2>
           <ul>
+            <li>
+            屏易连-1.4.3
+              <ul>
+                <li>moonlight 无线投屏支持 h265 编码</li>
+                <li>设置中授予了无障碍权限可自动跳过询问投屏权限弹窗</li>
+                <li>设置中授予了悬浮窗权限可显示悬浮返回按键</li>
+              </ul>
+            </li>
             <li>
             屏易连-1.4.2
               <ul>
