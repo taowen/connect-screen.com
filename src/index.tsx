@@ -170,6 +170,14 @@ app.get('/', (c) => {
           <h2>更新日志</h2>
           <ul>
             <li>
+            屏易连-1.4.4
+              <ul>
+                <li>moonlight 无线投屏开始的时候自动静音</li>
+                <li>添加自动熄屏选项</li>
+                <li>修复 moonlight 无线投屏的色彩问题</li>
+              </ul>
+            </li>
+            <li>
             屏易连-1.4.3
               <ul>
                 <li>moonlight 无线投屏支持 h265 编码</li>
