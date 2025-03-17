@@ -125,6 +125,7 @@ app.get('/', (c) => {
             屏易连-1.4.9
               <ul>
                 <li>修复 displaylink 单应用投屏无法使用触摸屏的 bug</li>
+                <li>支持无线热点或者usb热点连接moonlight</li>
               </ul>
             </li>
             <li>
