@@ -1,5 +1,23 @@
 import { Hono } from 'hono'
 import { renderer } from './renderer'
+import * as typec_alt_dp from './cases/typec-alt-dp'
+import * as displaylink from './cases/displaylink'
+import * as moonlight from './cases/moonlight'
+import * as miracast from './cases/miracast'
+import * as audio from './cases/audio'
+import * as screen_off from './cases/screen-off'
+import * as internal_touchpad from './cases/internal-touchpad'
+import * as internal_touchscreen from './cases/internal-touchscreen'
+import * as external_touchscreen from './cases/external-touchscreen'
+import * as auto_rotate from './cases/auto-rotate'
+import * as auto_scale from './cases/auto-scale'
+import * as single_app from './cases/single-app'
+import * as auto_font_size from './cases/auto-font-size'
+import * as auto_aspect_ratio from './cases/auto-aspect-ratio'
+import * as ime from './cases/ime'
+import * as mouse from './cases/mouse'
+import * as keyboard from './cases/keyboard'
+import * as gamepad from './cases/gamepad'
 
 const app = new Hono()
 
@@ -9,12 +27,12 @@ app.get('/', (c) => {
   return c.render(<>
     <div className="container">
       <header>
-        <h1>安卓屏连功能说明</h1>
+        <h1>屏易连功能说明</h1>
       </header>
       <main>
         <section>
           <h2>软件获取</h2>
-          <p>安卓屏连目前仍然处于开发中的状态，最新版本的 apk 请
+          <p>屏易连目前仍然处于开发中的状态，最新版本的 apk 请
             <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=Plk177jevOVwOdK7DUUP2Ht3K5poa4_u&jump_from=webapi&authKey=UmNk2qswp3p+VDriWxwU99YggMG6r3zaQJMvfyjt8o42Rk544YVomyvf2L4V414a">
             加入 QQ 群 391036729
             </a>。或者在 QQ 中搜索“安卓屏连”。或者用 QQ 扫描下边的二维码</p>
@@ -42,45 +60,41 @@ app.get('/', (c) => {
           </div>
         </section>
         <section>
-          <h2>接上了屏幕之后无法全屏，屏幕比例不对，导致黑边</h2>
+          <h2>目标 1：接上了屏幕之后无法全屏，屏幕比例不对，导致黑边</h2>
           <p>
             接个大屏幕的核心诉求是大。但是你真把手机接过一次大电视的时候，你就发现那屏幕一点都不大。
           接上之后你发现只能镜像一个小小屏幕展示和手机主屏一样的画面。
           这个问题的原因是手机的宽高比例大概是 2:1，而大部分显示器或者电视的宽高比例是 16:9 的场景。
           这就导致了手机的画面直接镜像是无法占满全屏的。
           而且我们也不希望只能镜像，我投屏看电影的时候手机还要刷微信呢。我投屏打游戏的时候，手机还要查攻略呢。
-          安卓屏连支持投单个应用到显示器，从而让这一个应用去占满屏幕。如果投过去的应用是类似“微软桌面”这样的启动器应用，
+          屏易连支持投单个应用到显示器，从而让这一个应用去占满屏幕。如果投过去的应用是类似“微软桌面”这样的启动器应用，
           你就获得了一个类似锤子 TNT 的第二块桌面。
           这个功能对于安卓手机的“无线投屏”功能也是可以用的，你可以无线连接你家电视，然后投单个应用实现全屏看b站视频。
           </p>
         </section>
         <section>
-          <h2>不是所有手机都是 usb 3.0 的接口</h2>
+          <h2>目标 2：不是所有手机都是 usb 3.0 的接口</h2>
           <p>手机用线直连显示器需要 usb 接口是 3.0 规格的，但是 usb 2.0 手机买的时候你可能没注意到这一点。
             等你用的时候就发现接不了显示器了。
             红米 k80 pro 都卖到了 4000 元这个价位了，还是在用万年的 usb 2.0 接口。
             也许你听过一个叫 <a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 的拓展坞可以让 usb2.0 接口的手机也能连显示器。
-            但是全屏，触摸，竖屏旋转这些功能你需要用安卓屏连才能让 <a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 这个宝藏硬件得到充分的利用。
-            除了 <a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 方案，安卓屏连也会继续探索其他基于无线的方案来解决 usb 2.0 手机接大屏幕的问题。</p>
+            但是全屏，触摸，竖屏旋转这些功能你需要用屏易连才能让 <a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 这个宝藏硬件得到充分的利用。
+            除了 <a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 方案，屏易连也支持无线的方案来解决 usb 2.0 手机接大屏幕的问题。</p>
         </section>
         <section>
-          <h2>为什么要开发安卓屏连，你打算卖多少钱？</h2>
+          <h2>为什么要开发屏易连，你打算卖多少钱？</h2>
           <p>这是给我个人使用的，发布出来只是为了方便和我有相同需求的同好。
             开源了所有代码 <a href="https://gitee.com/connect-screen/connect-screen" target="_blank">https://gitee.com/connect-screen/connect-screen</a>，没有盈利模式。
             也欢迎你去我的 b 站账号 <a href="https://space.bilibili.com/494726825" target="_blank">https://space.bilibili.com/494726825</a> 投两个免费的硬币。
-            我希望使用的场景包括：</p>
+            通过实现目标 1 和目标 2，可以组合出一些场景：</p>
           <ul>
-            <li>USB 2.0 手机通过 <a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ" target="_blank">displaylink</a> 扩展坞连7寸16:9的便携屏当掌机用，解决比例造成的黑边。解决触控屏不好使的问题。竖屏旋转成横屏。</li>
-            <li>USB 3.0 手机直连7寸16:9的便携屏当掌机用，解决比例造成的黑边。提供触控板</li>
-            <li>手机连大便携屏投高德地图当车机用，手机当补盲摄像头，或者外接摄像头</li>
-            <li>小屏幕的车机外接一个更大的扩展屏</li>
+            <li>接 7 寸便携屏当个便携掌机</li>
+            <li>接 13 寸便携屏移动办公</li>
+            <li>有线接 AR 眼镜看电影办公</li>
+            <li>无线投 AR 眼镜，把手机做为 AR 应用的本地算力</li>
             <li>手机带到公司插上显示器，当办公pc用。上班只用带手机</li>
-            <li>USB 2.0/3.0 的手机接 AR 眼镜看电影，处理眼镜的陀螺仪</li>
-            <li>USB 2.0 的手机接压感数位屏</li>
-            <li>安卓手机接安卓平板，把平板当便携屏用</li>
-            <li>安卓手机全屏无线投到安卓大电视上，双屏异显，触控板</li>
-            <li>苹果手机全屏无线镜像到安卓大电视上，裁切到电视的比例</li>
-            <li>单个应用的视频流推到安卓大电视上</li>
+            <li>无线连接旧平板，利用手机的算力提升平板体验</li>
+            <li>无线投屏大电视，免得买电视上的视频会员</li>
           </ul>
         </section>
         <section>
@@ -117,6 +131,12 @@ app.get('/', (c) => {
               <li>usb 2.0 手机通过 displaylink 扩展坞有线投屏。不推荐买 displaylink 扩展坞硬件了，我觉得 moonlight 足够用了。</li>
               <li>usb 3.0 手机有线投屏</li>
             </ul>
+        </section>
+        <section>
+          <h2>常见问题</h2>
+          <ul>
+            <li><a href="/cases/typec-alt-dp">usb 3.0 手机通过 typec 接口直接连屏幕</a></li>
+          </ul>
         </section>
         <section>
           <h2>更新日志</h2>
@@ -453,7 +473,7 @@ app.get('/', (c) => {
         </section>
       </main>
       <footer>
-        <p>版权所有 &copy; 2025 安卓屏连</p>
+        <p>版权所有 &copy; 2025 屏易连</p>
       </footer>
     </div>
   </>)
@@ -462,5 +482,28 @@ app.get('/', (c) => {
 app.get('/download-latest', async (c) => {
   return c.redirect('/static/download-latest/index.html')
 })
+
+// output
+typec_alt_dp.configure(app)
+displaylink.configure(app)
+moonlight.configure(app)
+miracast.configure(app)
+audio.configure(app)
+screen_off.configure(app)
+// input
+external_touchscreen.configure(app)
+// mirror mode fullscreen
+auto_rotate.configure(app)
+auto_scale.configure(app)
+auto_font_size.configure(app)
+auto_aspect_ratio.configure(app)
+// extend mode fullscreen
+single_app.configure(app)
+internal_touchpad.configure(app)
+internal_touchscreen.configure(app)
+ime.configure(app)
+mouse.configure(app)
+keyboard.configure(app)
+gamepad.configure(app)
 
 export default app
