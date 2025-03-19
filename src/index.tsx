@@ -142,6 +142,13 @@ app.get('/', (c) => {
           <h2>更新日志</h2>
           <ul>
             <li>
+            屏易连-1.5.0
+              <ul>
+                <li>修复投影权限需要给两次的问题</li>
+                <li>支持 ipad moonlight 的单指触摸</li>
+              </ul>
+            </li>
+            <li>
             屏易连-1.4.9
               <ul>
                 <li>修复 displaylink 单应用投屏无法使用触摸屏的 bug</li>
