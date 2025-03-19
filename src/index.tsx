@@ -136,6 +136,8 @@ app.get('/', (c) => {
           <h2>常见问题</h2>
           <ul>
             <li><a href="/cases/typec-alt-dp">usb 3.0 手机通过 typec 接口直接连屏幕</a></li>
+            <li><a href="/cases/displaylink">usb 2.0 手机通过 displaylink 扩展坞有线投屏</a></li>
+            <li><a href="/cases/moonlight">usb 2.0 手机通过 moonlight 有线或者无线投屏</a></li>
           </ul>
         </section>
         <section>
