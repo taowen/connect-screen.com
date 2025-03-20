@@ -18,6 +18,7 @@ import * as ime from './cases/ime'
 import * as mouse from './cases/mouse'
 import * as keyboard from './cases/keyboard'
 import * as gamepad from './cases/gamepad'
+import * as protection from './cases/protection'
 
 const app = new Hono()
 
@@ -140,6 +141,7 @@ app.get('/', (c) => {
               <li><a href="/cases/typec-alt-dp">usb 3.0 手机通过 typec 接口直接连屏幕</a></li>
               <li><a href="/cases/displaylink">usb 2.0 手机通过 displaylink 扩展坞有线投屏</a></li>
               <li><a href="/cases/moonlight">usb 2.0 手机通过 moonlight 有线或者无线投屏</a></li>
+              <li><a href="/cases/protection">投屏出来的微信是模糊的，键盘则完全看不见</a></li>
               </ul>
             </li>
             <li>
@@ -521,6 +523,7 @@ moonlight.configure(app)
 miracast.configure(app)
 audio.configure(app)
 screen_off.configure(app)
+protection.configure(app)
 // input
 external_touchscreen.configure(app)
 // mirror mode fullscreen
