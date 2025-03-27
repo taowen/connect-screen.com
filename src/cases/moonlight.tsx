@@ -41,6 +41,32 @@ export function configure(app: Hono) {
                 <li>输入完配对密码，应该出现 Desktop 图标</li>
                 <li>点击 Desktop 图标，应该出现红米 k40的镜像画面</li>
             </ol>
+            <h3>用例 3：连接 ipad 中国区商店的 moonlight</h3>
+            <ol>
+                <li>ipad 从中国区商店下载 moonlight</li>
+                <li>ipad 接入家庭 wifi</li>
+                <li>小米 14 接入相同家庭 wifi</li>
+                <li>小米 14 启动屏易连</li>
+                <li>ipad 启动 moonlight</li>
+                <li>ipad 应该自动在设备列表中找到小米 14</li>
+                <li>在ipad 上点击设备图标之后，弹出配对密码输入界面</li>
+                <li>输入完配对密码，应该出现 Desktop 图标</li>
+                <li>点击 Desktop 图标，应该出现小米 14的镜像画面</li>
+                <li>此时可以触摸，但是只支持单指触摸。原因是中国区商店的 moonlight 没有实现多指触摸的识别。</li>
+            </ol>
+            <h3>用例 4：连接 ipad 美国区商店的 moonlight 砖家版</h3>
+            <ol>
+                <li>ipad 从中国区商店下载 moonlight</li>
+                <li>ipad 接入家庭 wifi</li>
+                <li>小米 14 接入相同家庭 wifi</li>
+                <li>小米 14 启动屏易连</li>
+                <li>ipad 启动 moonlight</li>
+                <li>ipad 应该自动在设备列表中找到小米 14</li>
+                <li>在ipad 上点击设备图标之后，弹出配对密码输入界面</li>
+                <li>输入完配对密码，应该出现 Desktop 图标</li>
+                <li>点击 Desktop 图标，应该出现小米 14的镜像画面</li>
+                <li>此时可以多点触摸</li>
+            </ol>
         </div>)
     })
 }
