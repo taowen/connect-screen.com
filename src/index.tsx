@@ -29,6 +29,8 @@ app.get('/', (c) => {
     <div className="container">
       <header>
         <h1>屏易连功能说明</h1>
+        <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" />
       </header>
       <main>
         <section>
