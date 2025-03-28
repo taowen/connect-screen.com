@@ -21,6 +21,7 @@ export function configure(app: Hono) {
                 <li><a href="https://www.bilibili.com/video/BV12rA2eGEVF/">全网最全电脑手机多种方式激活华为或安卓11以下的shizuku（带激活无线调试）</a></li>
                 <li><a href="https://www.bilibili.com/video/BV1nTsZeDELi/">小米红米：激活shizuku教程</a></li>
             </ul>
+            <p>另外这里有一个可以在 PC 电脑浏览器里激活 shizuku 的网址 <a href="https://adb.http.gs/" target="_blank">https://adb.http.gs/</a>，对于华为手机这种没有无线调试的机器，临时救急一下挺好。</p>
         </div>)
     })
 }

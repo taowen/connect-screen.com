@@ -12,6 +12,10 @@ export function configure(app: Hono) {
             <p>displaylink 扩展坞都是设计出来给电脑使用的，而且洋垃圾本身也很多问题。所以闲鱼上买来之后未必能用。
                 当 displaylink 扩展坞不能正常工作的时候，请按 <a href="https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ">https://docs.qq.com/doc/DUUN2ZWZpQmhZUkhZ</a> 文档描述的故障排查步骤一步步排查。
             </p>
+            <p>
+                淘宝上有很多给 usb 2.0 手机用的投屏线。这些没有标 displaylink 的投屏线都是不带 displaylink 芯片的，屏易连也不兼容。
+                这些不同品牌的投屏线实际都是同一个国内公司生产，受限于成本，其投屏质量是非常一般的，请谨慎选购。
+            </p>
             <h3>用例 1：先插上 displaylink 扩展坞，再启动屏易连</h3>
             <ol>
                 <li>targus 120 displaylink 扩展坞用 hdmi 线连接好 1080p 便携屏</li>
