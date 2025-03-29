@@ -19,6 +19,7 @@ export function configure(app: Hono) {
                 原因 2，过于大家对于无线 WIFI 投屏的印象是延迟，帧率和清晰度都显著低于有线直连。moonlight 在无线投屏中算是优化得比较好的。
                 可以挑战一下过去固有的无线投屏的屏幕不能当正常的屏幕使用的印象。
             </p>
+            <p>在屏易连的百度网盘里放了大部分的moonlight客户端，ios的moonlight当然只能从苹果的软件商店下载。</p>
             <h3>用例 1：wifi 无线连接</h3>
             <ol>
                 <li>小米平板 5 接入家庭 wifi</li>
