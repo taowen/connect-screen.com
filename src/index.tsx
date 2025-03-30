@@ -169,6 +169,8 @@ app.get('/', (c) => {
         </section>
         <section>
           <h2>更新日志</h2>
+        <details>
+          <summary>点击展开完整更新日志</summary>
           <ul>
             <li>
             屏易连-1.5.6
@@ -547,6 +549,7 @@ app.get('/', (c) => {
               </ul>
             </li>
           </ul>
+          </details>
         </section>
       </main>
       <footer>
