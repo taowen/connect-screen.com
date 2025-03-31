@@ -173,6 +173,15 @@ app.get('/', (c) => {
           <summary>点击展开完整更新日志</summary>
           <ul>
             <li>
+            屏易连-1.5.7
+              <ul>
+                <li>改善低端moonlight设备接收 4k 30帧的体验</li>
+                <li>修复退出时没有恢复媒体静音问题</li>
+                <li>检测到 root 启动的 shizuku 尝试自动重启其为 adb 身份，从而避免root启动的shizuku无法单应用投屏的问题</li>
+                <li>利用 shizuku 权限自动授权媒体投影权限和悬浮窗权限</li>
+              </ul>
+            </li>
+            <li>
             屏易连-1.5.6
               <ul>
                 <li>修复和Moonlight自启版的配对问题</li>
