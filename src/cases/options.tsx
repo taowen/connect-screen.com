@@ -4,7 +4,7 @@ export function configure(app: Hono) {
     app.get('/cases/options', (c) => {
         return c.render(<div>
             <h2>应该选择哪种接屏幕的方式？哪种方式能全屏？</h2>
-            <p>接屏幕的方式有以下三种：
+            <p>屏易连，接屏幕的方式有以下三种：
                 <ul>
                     <li>usb 3.0 手机通过 typec 接口直接连屏幕</li>
                     <li>usb 2.0 手机通过 displaylink 扩展坞有线投屏</li>
@@ -28,7 +28,7 @@ export function configure(app: Hono) {
                 但更多是通过无线网络来实现互连。无线可以是家里路由器的无线网，也可以是手机开的热点。注意开热点的时候选择 wifi6 以及 5ghz 频段。
             </p>
             <p>
-                全屏方法有以下三种：
+            屏易连，全屏方法有以下三种：
                 <ul>
                     <li>镜像投屏大部分时候是有黑边的，对于播放 16:9 视频的时候会检测到并通过自动裁切缩放来实现全屏。在设置中默认已经勾选上了这个自动缩放功能了。</li>
                     <li>通过自动修改主屏宽高比来实现全屏</li>
