@@ -20,6 +20,7 @@ import * as keyboard from './cases/keyboard'
 import * as gamepad from './cases/gamepad'
 import * as protection from './cases/protection'
 import * as shizuku from './cases/shizuku'
+import * as options from './cases/options'
 
 const app = new Hono()
 
@@ -146,7 +147,8 @@ app.get('/', (c) => {
               <li><a href="/cases/shizuku">什么是 shizuku？为什么我没有办法投单应用？</a></li>
               </ul>
             </li>
-            <li>输入输出
+            <li>
+              <a href="/cases/options">应该选择哪种接屏幕的方式？哪种方式能全屏？</a>
               <ul>
               <li><a href="/cases/typec-alt-dp">usb 3.0 手机通过 typec 接口直接连屏幕</a></li>
               <li><a href="/cases/displaylink">usb 2.0 手机通过 displaylink 扩展坞有线投屏</a></li>
@@ -576,6 +578,7 @@ app.get('/download-latest', async (c) => {
 protection.configure(app)
 shizuku.configure(app)
 // output
+options.configure(app)
 typec_alt_dp.configure(app)
 displaylink.configure(app)
 moonlight.configure(app)
