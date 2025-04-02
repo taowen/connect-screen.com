@@ -175,6 +175,14 @@ app.get('/', (c) => {
           <summary>点击展开完整更新日志</summary>
           <ul>
             <li>
+            屏易连-1.5.8
+              <ul>
+                <li>修复 moonlight 退出后静音不恢复的问题</li>
+                <li>增加使用黑色图片模拟熄屏的选项</li>
+                <li>支持使用 shizuku 权限处理 moonlight 键盘输入</li>
+              </ul>
+            </li>
+            <li>
             屏易连-1.5.7
               <ul>
                 <li>改善低端moonlight设备接收 4k 30帧的体验</li>
