@@ -175,6 +175,13 @@ app.get('/', (c) => {
           <summary>点击展开完整更新日志</summary>
           <ul>
             <li>
+            屏易连-1.5.9
+              <ul>
+                <li>通过 shizuku 权限强制系统全局录音，避免 moonlight 投屏时部分 app 无声的问题</li>
+                <li>改善真实熄屏的稳定性</li>
+              </ul>
+            </li>
+            <li>
             屏易连-1.5.8
               <ul>
                 <li>修复 moonlight 退出后静音不恢复的问题</li>
