@@ -28,6 +28,7 @@ export function configure(app: Hono) {
             </p>
             <h3>用例 1：wifi 无线连接</h3>
             <ol>
+                <li>触摸需要 shizuku 权限，先准备好小米 14 的shizuku</li>
                 <li>小米平板 5 接入家庭 wifi</li>
                 <li>小米 14 接入相同家庭 wifi</li>
                 <li>小米 14 启动屏易连</li>
@@ -39,6 +40,7 @@ export function configure(app: Hono) {
             </ol>
             <h3>用例 2：usb 有线连接 windows 平板</h3>
             <ol>
+                <li>触摸需要 shizuku 权限，先准备好红米 k40 的shizuku</li>
                 <li>用 usb 线连接红米 k40 和 surface go 2</li>
                 <li>红米 k40 开启 usb 网络共享，此时 surface go2 应该可以通过红米 k40 共享网络上网</li>
                 <li>红米 k40 启动屏易连</li>
@@ -50,6 +52,7 @@ export function configure(app: Hono) {
             </ol>
             <h3>用例 3：连接 ipad 中国区商店的 moonlight</h3>
             <ol>
+                <li>触摸需要 shizuku 权限，先准备好小米 14 的shizuku</li>
                 <li>ipad 从中国区商店下载 moonlight</li>
                 <li>ipad 接入家庭 wifi</li>
                 <li>小米 14 接入相同家庭 wifi</li>
@@ -63,6 +66,7 @@ export function configure(app: Hono) {
             </ol>
             <h3>用例 4：连接 ipad 美国区商店的 moonlight 砖家版</h3>
             <ol>
+                <li>触摸需要 shizuku 权限，先准备好小米 14 的shizuku</li>
                 <li>ipad 从中国区商店下载 moonlight</li>
                 <li>ipad 接入家庭 wifi</li>
                 <li>小米 14 接入相同家庭 wifi</li>
@@ -70,6 +74,20 @@ export function configure(app: Hono) {
                 <li>ipad 启动 moonlight</li>
                 <li>ipad 应该自动在设备列表中找到小米 14</li>
                 <li>在ipad 上点击设备图标之后，弹出配对密码输入界面</li>
+                <li>输入完配对密码，应该出现 Desktop 图标</li>
+                <li>点击 Desktop 图标，应该出现小米 14的镜像画面</li>
+                <li>此时可以多点触摸</li>
+            </ol>
+            <h3>用例 5：连接安卓平板</h3>
+            <ol>
+                <li>触摸需要 shizuku 权限，先准备好小米 14 的shizuku</li>
+                <li>安卓平板下载阿西西修改版的 moonlight，官方版本还没有支持触摸</li>
+                <li>安卓平板接入家庭 wifi</li>
+                <li>小米 14 接入相同家庭 wifi</li>
+                <li>小米 14 启动屏易连</li>
+                <li>安卓平板启动 moonlight</li>
+                <li>安卓平板应该自动在设备列表中找到小米 14</li>
+                <li>在安卓平板上点击设备图标之后，弹出配对密码输入界面</li>
                 <li>输入完配对密码，应该出现 Desktop 图标</li>
                 <li>点击 Desktop 图标，应该出现小米 14的镜像画面</li>
                 <li>此时可以多点触摸</li>
