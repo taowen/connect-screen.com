@@ -37,12 +37,7 @@ app.get('/', (c) => {
       <main>
         <section>
           <h2>软件获取</h2>
-          <p>屏易连目前仍然处于开发中的状态，最新版本的 apk 请
-            <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=Plk177jevOVwOdK7DUUP2Ht3K5poa4_u&jump_from=webapi&authKey=UmNk2qswp3p+VDriWxwU99YggMG6r3zaQJMvfyjt8o42Rk544YVomyvf2L4V414a">
-            加入 QQ 群 391036729
-            </a>。或者在 QQ 中搜索“安卓屏连”。或者用 QQ 扫描下边的二维码</p>
-            <img src="/static/qrcode-302.png" />
-          <p>如果你是软件开发者，也可以从 <a href="https://gitee.com/connect-screen/connect-screen" target="_blank">https://gitee.com/connect-screen/connect-screen</a> 获取源代码自行编译</p>
+          <p>如果你是软件开发者，可以从 <a href="https://gitee.com/connect-screen/connect-screen" target="_blank">https://gitee.com/connect-screen/connect-screen</a> 获取源代码自行编译</p>
           
           <div style={{
             display: 'flex',
