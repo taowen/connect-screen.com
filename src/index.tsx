@@ -170,6 +170,12 @@ app.get('/', (c) => {
           <summary>点击展开完整更新日志</summary>
           <ul>
             <li>
+            屏易连-1.6.1
+              <ul>
+                <li>部分朋友反馈新版本moonlight无声音，新增禁用REMOTE_SUBMIX的选项。勾选之后回退旧版本的录音方法</li>
+              </ul>
+            </li>
+            <li>
             屏易连-1.6.0
               <ul>
                 <li>解决部分机型上熄屏无法唤醒的问题</li>
