@@ -604,6 +604,8 @@ app.get('/', (c) => {
       <footer>
         <p>版权所有 &copy; 2025 屏易连</p>
       </footer>
+      <hr/>
+      <img src="/static/qrcode_1745333383111.jpg" alt="屏易连" />
     </div>
   </>)
 })
