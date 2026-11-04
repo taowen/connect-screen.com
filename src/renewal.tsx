@@ -16,7 +16,7 @@ export function Renewal() {
             <path d="M38 105h10 M70 80l23-23m-13 0h13v13" />
           </svg>
           <h2>BiggerDroid</h2>
-          <p>在手机上选一个应用，投到大屏单窗口显示。手机当遥控器，兼容设备还支持视频实时转 3D。</p>
+          <p>戴上 AR 眼镜看电影，接上投影仪和朋友看大片，或在大屏幕上追剧。手机当飞鼠遥控器，抬手就能在大屏上选片、暂停或换集。</p>
           <span className="renewal-domain">biggerdroid.com ↗</span>
         </a>
         <a className="renewal-card large" href="https://largedroid.com/?lang=zh">
@@ -29,7 +29,7 @@ export function Renewal() {
             <path d="M38 38h105m-94 12 10 8-10 8m18 0h18" />
           </svg>
           <h2>LargeDroid</h2>
-          <p>直接在大屏设备上运行多窗口桌面，玩 Steam、跨屏办公。也可以接收并反控手机投屏。</p>
+          <p>平板买回来，除了盖泡面还能干什么？把资料和文档并排打开，边查边写，忙完再开 Steam 玩一局。手机或者平板接上 AR 眼镜，还能让办公窗口悬停在眼前，转头就能看另一份资料。</p>
           <span className="renewal-domain">largedroid.com ↗</span>
         </a>
       </div>
