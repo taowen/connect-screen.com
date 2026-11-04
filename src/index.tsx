@@ -1,4 +1,5 @@
 import { Hono } from 'hono'
+import { Renewal } from './renewal'
 import { renderer } from './renderer'
 import * as typec_alt_dp from './cases/typec-alt-dp'
 import * as displaylink from './cases/displaylink'
@@ -26,17 +27,20 @@ const app = new Hono()
 
 app.use(renderer)
 
-app.get('/', (c) => {
+app.get('/', (c) => c.render(<Renewal />))
+
+app.get('/legacy', (c) => {
   return c.render(<>
     <div className="container">
       <header>
-        <h1>屏易连功能说明</h1>
+        <h1>屏易连 1.6.3 功能说明</h1>
         <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
         <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" />
       </header>
       <main>
         <section>
-          <h2>软件获取</h2>
+          <h2>软件获取 · 最后版本 1.6.3</h2>
+          <p><a href="https://github.com/taowen/connect-screen.com/releases/tag/v1.6.3">查看 GitHub 上的 1.6.3 发行版</a> · <a href="/">返回屏易连首页</a></p>
           <p>如果你是软件开发者，可以从 <a href="https://gitee.com/connect-screen/connect-screen" target="_blank">https://gitee.com/connect-screen/connect-screen</a> 获取源代码自行编译</p>
           
           <div style={{
