@@ -12,6 +12,7 @@ body:has(.renewal) { margin: 0; background: #101721; color: #eef5fb; font-family
 .renewal-card.large { color: #b2f9e0; background: radial-gradient(ellipse at top right, #205747, #15332e 70%); }
 .renewal-card svg { width: min(100%, 290px); margin: 24px auto; }
 .renewal-card h2 { font-size: clamp(32px, 5vw, 64px); letter-spacing: -.045em; line-height: 1.1; }
+.renewal-capabilities { margin-top: 14px; padding: 7px 12px; border: 1px solid #ffffff32; border-radius: 999px; background: #ffffff0a; font-size: 14px; font-weight: 600; }
 .renewal-card p { color: #eef5fb; margin: 12px 0 22px; }
 .renewal-domain { margin-top: auto; font-weight: 700; }
 .renewal footer { text-align: left; margin-top: 24px; color: #a9b9d1; font-size: 14px; }
